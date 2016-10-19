@@ -1,0 +1,30 @@
+---
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: kube-cluster-agent
+  namespace: default
+  labels:
+    app: kube-cluster-agent
+spec:
+  replicas: 1
+  selector:
+    app: kube-cluster-agent
+  template:
+    metadata:
+      labels:
+        app: kube-cluster-agent
+    spec:
+      containers:
+        - name: kube-cluster-agent
+          image: azweb76/kube-cluster-agent
+          imagePullPolicy: Always
+          command:
+            - /app/bin/start
+            - --url=http://kube.mydomain.com:8080
+            - --retention-interval=5m
+            - --monitor-interval=30s
+            - --slack-url=https://hooks.slack.com/services/xxx/xxx/xxx
+            - --notify-user=@here
+            - --slack-channel=kube-monitor
+            - -ns=default

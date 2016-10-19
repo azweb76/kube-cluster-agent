@@ -1,0 +1,16 @@
+{
+  "name": "kube-cluster-agent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "argparse": "^1.0.9",
+    "async": "^2.1.2",
+    "k8s-client": "^0.2.3"
+  }
+}

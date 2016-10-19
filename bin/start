@@ -1,0 +1,101 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const Cli = require('../lib/cli');
+const utils = require('../lib/utils');
+const ArgumentParser = require('argparse').ArgumentParser;
+
+var parser = new ArgumentParser({
+  version: '0.0.1',
+  addHelp:true,
+  description: 'CICD cluster agent.'
+});
+parser.addArgument(
+  [ '-u', '--url' ],
+  {
+    required: true,
+    help: 'Url to the kubernetes cluster.'
+  }
+);
+
+parser.addArgument(
+  [ '-ns', '--namespace' ],
+  {
+    action: 'append',
+    defaultValue: [],
+    help: 'Kubernetes namespace(s).'
+  }
+);
+
+parser.addArgument(
+  [ '-m', '--monitor' ],
+  {
+    action: 'append',
+    defaultValue: [],
+    help: 'Monitors to enable.'
+  }
+);
+
+parser.addArgument(
+  [ '--slack-url' ],
+  {
+    help: 'Url to a slack webhook.'
+  }
+);
+parser.addArgument(
+  [ '--slack-channel' ],
+  {
+    help: 'Slack channel name to send notifications.'
+  }
+);
+parser.addArgument(
+  [ '--notify-user' ],
+  {
+    defaultValue: '@here',
+    help: 'Slack user to notify.'
+  }
+);
+parser.addArgument(['--cluster-name'], { help: 'Name of the cluster used in notifications.' });
+parser.addArgument(
+  [ '-p', '--parallelism' ],
+  {
+    type: Number,
+    defaultValue: 4,
+    help: 'Number of parallel tasks.'
+  }
+);
+parser.addArgument(
+  [ '--pod-availability-threshold' ],
+  {
+    type: Number,
+    defaultValue: 10,
+    help: 'Minimum available pods threshold.'
+  }
+);
+parser.addArgument(
+  [ '--monitor-interval' ],
+  {
+    type: utils.tdelta,
+    defaultValue: '1m',
+    help: 'Interval to run monitor checks.'
+  }
+);
+parser.addArgument([ '--max-pod-pending' ], { type: utils.tdelta,
+    defaultValue: '5m', help: 'Maximum duration a pod can be in a pending status.' }
+);
+parser.addArgument([ '--max-pod-restarts' ], { type: Number,
+    defaultValue: 2, help: 'Maximum number a pod can restart within the monitor-interval.' }
+);
+parser.addArgument(
+  '--retention-interval',
+  {
+    type: utils.tdelta,
+    defaultValue: '5m',
+    help: 'The interval (in ms) in which the retention process checks for expired builds.'
+  }
+);
+var args = parser.parseArgs();
+
+const cli = new Cli(args);
+cli.start();
