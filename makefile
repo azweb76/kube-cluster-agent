@@ -1,12 +1,14 @@
+VERSION := $(shell cat ./package.json | jq -r .version)
+
 all: clean
 
 build:
-		rm -rf node_modules && npm install --production
+		rm -rf node_modules && yarn install --production
 
 build_docker: build
-		docker build -t azweb76/kube-cluster-agent .
+		docker build -t azweb76/kube-cluster-agent:$(VERSION) .
 
 clean: build_docker
 
-publish: clean
-	  docker push azweb76/kube-cluster-agent
+publish:
+	  docker push azweb76/kube-cluster-agent:$(VERSION)

@@ -24,6 +24,7 @@ parser.addArgument(
   {
     action: 'append',
     defaultValue: [],
+    required: true,
     help: 'Kubernetes namespace(s).'
   }
 );
@@ -56,6 +57,21 @@ parser.addArgument(
     help: 'Slack user to notify.'
   }
 );
+parser.addArgument(['--username'], {
+  defaultValue: process.env.KUBE_USERNAME,
+  help: 'Username used to login to cluster.'
+});
+parser.addArgument(['--password'], {
+  defaultValue: process.env.KUBE_PASSWORD,
+  help: 'Password used to login to cluster.'
+});
+parser.addArgument(['--token'], { help: 'Token used to login to cluster.' });
+parser.addArgument(['--ca-cert'], { help: 'CA certificate used to access cluster.' });
+parser.addArgument(['--cert'], { help: 'Client certificate used to login to cluster.' });
+parser.addArgument(['--key'], { help: 'Client certificate key used to login to cluster.' });
+
+parser.addArgument(['--pod-threshold'], { type: Number, help: 'Maximum pods in the namespace.' });
+
 parser.addArgument(['--cluster-name'], { help: 'Name of the cluster used in notifications.' });
 parser.addArgument(
   [ '-p', '--parallelism' ],
@@ -84,6 +100,9 @@ parser.addArgument(
 parser.addArgument([ '--max-pod-pending' ], { type: utils.tdelta,
     defaultValue: '5m', help: 'Maximum duration a pod can be in a pending status.' }
 );
+parser.addArgument([ '--privileged' ], { action: 'storeTrue',
+    defaultValue: false, help: 'Enable cluster-wide features.' }
+);
 parser.addArgument([ '--max-pod-restarts' ], { type: Number,
     defaultValue: 2, help: 'Maximum number a pod can restart within the monitor-interval.' }
 );
@@ -93,6 +112,11 @@ parser.addArgument(
     type: utils.tdelta,
     defaultValue: '5m',
     help: 'The interval (in ms) in which the retention process checks for expired builds.'
+  }
+);
+parser.addArgument('--audit-interval',
+  { type: utils.tdelta, defaultValue: '5d',
+    help: 'The interval in which the retention process should audit objects (orphaned, etc).'
   }
 );
 var args = parser.parseArgs();

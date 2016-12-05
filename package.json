@@ -11,6 +11,6 @@
   "dependencies": {
     "argparse": "^1.0.9",
     "async": "^2.1.2",
-    "k8s-client": "^0.2.3"
+    "k8s-client": "^0.2.9"
   }
 }
