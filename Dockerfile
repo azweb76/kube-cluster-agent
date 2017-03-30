@@ -2,7 +2,7 @@ from centos:7
 
 WORKDIR /app
 
-ENV NODE_VERSION v6.7.0
+ENV NODE_VERSION v6.10.1
 
 RUN \
   mkdir -p /usr/local/node/ && \

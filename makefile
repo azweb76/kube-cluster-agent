@@ -11,4 +11,5 @@ build_docker: build
 clean: build_docker
 
 publish:
-	  docker push azweb76/kube-cluster-agent:$(VERSION)
+	  docker tag azweb76/kube-cluster-agent:$(VERSION) azweb76/kube-cluster-agent:latest
+	  docker push azweb76/kube-cluster-agent:latest

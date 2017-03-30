@@ -65,7 +65,14 @@ parser.addArgument(['--password'], {
   defaultValue: process.env.KUBE_PASSWORD,
   help: 'Password used to login to cluster.'
 });
-parser.addArgument(['--token'], { help: 'Token used to login to cluster.' });
+parser.addArgument(['--token'], {
+  defaultValue: process.env.KUBE_TOKEN,
+  help: 'Token used to login to cluster.'
+});
+parser.addArgument(['--token-file'], {
+  defaultValue: process.env.KUBE_TOKEN_FILE,
+  help: 'Token file used to login to cluster.'
+});
 parser.addArgument(['--ca-cert'], { help: 'CA certificate used to access cluster.' });
 parser.addArgument(['--cert'], { help: 'Client certificate used to login to cluster.' });
 parser.addArgument(['--key'], { help: 'Client certificate key used to login to cluster.' });
