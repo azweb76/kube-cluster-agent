@@ -41,13 +41,16 @@ sample: [rc.yaml](docs/samples/rc.yaml)
 |--retention-interval|Default 5m. The interval in which the retention process checks for expired builds.|
 |--audit-interval|Default 5d. The interval in which the retention process should audit objects (orphaned, etc).|
 
-## Monitors
+## Monitoring
+The monitors are invoked based on `--monitor-interval` and if a monitor fails 3 or more times, an alert is created and a Slack or console message is sent.
 
 |monitor|description|
 |---|---|
 |capacity|Check if the number of pods in each namespace exceed the cluster or `--pod-capacity` limit.|
 |nodes|Privileged. Check if all nodes are in a Ready state.|
 |pods|Check if all pods are in a Ready state.|
+
+The agent listens on port 8080 and exposes the health of the service using a `/healthcheck.html` route.
 
 ## Retention
 Used to delete objects that expire based on a pin date (`pinned_dt` annotation) in each replication controller. When the pin date expires, ingress, service and replication controller objects will be deleted based on all objects sharing the same name.
