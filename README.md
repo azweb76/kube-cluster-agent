@@ -7,12 +7,12 @@ sample: [rc.yaml](docs/samples/rc.yaml)
 
 ```bash
 /app/bin/start \
- --url=http://kube.mydomain.com:8080
- --retention-interval=5m
- --monitor-interval=30s
- --slack-url=https://hooks.slack.com/services/xxx/xxx/xxx
- --notify-user=@here
- --slack-channel=kube-monitor
+ --url=http://kube.mydomain.com:8080 \
+ --retention-interval=5m \
+ --monitor-interval=30s \
+ --slack-url=https://hooks.slack.com/services/xxx/xxx/xxx \
+ --notify-user=@here \
+ --slack-channel=kube-monitor \
  --namespace=default
 ```
 
