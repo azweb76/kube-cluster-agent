@@ -104,6 +104,14 @@ parser.addArgument(
     help: 'Interval to run monitor checks.'
   }
 );
+parser.addArgument(
+  [ '--pod-health-selector' ],
+  {
+    type: utils.toSelector,
+    defaultValue: null,
+    help: 'Selector used to determine healthy pods.'
+  }
+);
 parser.addArgument([ '--max-pod-pending' ], { type: utils.tdelta,
     defaultValue: '5m', help: 'Maximum duration a pod can be in a pending status.' }
 );
