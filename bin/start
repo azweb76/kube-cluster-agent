@@ -30,6 +30,14 @@ parser.addArgument(
 );
 
 parser.addArgument(
+  [ '--sys-namespace' ],
+  {
+    defaultValue: 'kube-system',
+    help: 'Kubernetes system namespace.'
+  }
+);
+
+parser.addArgument(
   [ '-m', '--monitor' ],
   {
     action: 'append',
@@ -133,6 +141,18 @@ parser.addArgument('--audit-interval',
   { type: utils.tdelta, defaultValue: '5d',
     help: 'The interval in which the retention process should audit objects (orphaned, etc).'
   }
+);
+parser.addArgument('--graphite-host',
+  { help: 'Graphite host to publish heapster metrics.' }
+);
+parser.addArgument('--stats-interval',
+  { type: utils.tdelta, defaultValue: '15s', help: 'Interval to push stats to graphite.' }
+);
+parser.addArgument('--graphite-prefix',
+  { defaultValue: 'k8s', help: 'Graphite prefix.' }
+);
+parser.addArgument('--port',
+  { defaultValue: 8080, help: 'API port to listen' }
 );
 var args = parser.parseArgs();
 
