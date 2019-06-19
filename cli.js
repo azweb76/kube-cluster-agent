@@ -2,8 +2,8 @@
 
 'use strict'
 
-const Cli = require('../lib/cli');
-const utils = require('../lib/utils');
+const Cli = require('./lib/app');
+const utils = require('./lib/utils');
 const ArgumentParser = require('argparse').ArgumentParser;
 
 var parser = new ArgumentParser({
