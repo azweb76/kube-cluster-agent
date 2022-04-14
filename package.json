@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "argparse": "^1.0.9",
-    "async": "^2.1.2",
+    "async": "^3.2.2",
     "express": "^4.14.0",
     "k8s-client": "^0.2.10"
   }
